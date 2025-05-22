@@ -1,6 +1,6 @@
-RPDQuest
+RDPQuest - Rogue de Prompt
 
-RPDQuest é um RPG jogável via terminal, com sistema de classes, inimigos, masmorras e batalhas.
+RDPQuest é um RPG jogável via terminal, com sistema de classes, inimigos, masmorras e batalhas.
 
 --------------------------------------
 
@@ -24,15 +24,16 @@ Como Jogar
 
 Requisitos
 
-- Windows (recomendado 7 ou superior)
+- Windows 7+
+- Linux
 - Terminal ou Prompt de Comando
 
 --------------------------------------
 
-Atualizacoes
+Atualizações
 
-- Baixe sempre a ultima versao disponível no GitHub.
-- Ao instalar uma nova versao, a instalacao anterior sera atualizada automaticamente.
+- Baixe sempre a ultima versão disponível no GitHub.
+- Ao instalar uma nova versão, a instalação anterior sera atualizada automaticamente.
 
 --------------------------------------
 
