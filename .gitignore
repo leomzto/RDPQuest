@@ -1,5 +1,5 @@
 rdp/Makefile
-rdp/backup/
+backup/
 rdp/game/
 rdp/icons/
 rdp/crun.bat
