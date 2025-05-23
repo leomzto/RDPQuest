@@ -1,8 +1,11 @@
 rdp/Makefile
-backup/
+
+versions/
 rdp/game/
 rdp/icons/
+
 rdp/crun.bat
+
 README.txt
-scriptInstalador.nsi
 license.txt
+scriptInstalador.nsi
