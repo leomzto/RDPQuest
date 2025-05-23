@@ -4,6 +4,12 @@ RDPQuest é um RPG jogável via terminal, com sistema de classes, inimigos, masm
 
 --------------------------------------
 
+Demonstração
+
+![Demo](https://s14.gifyu.com/images/bso2d.gif)
+
+--------------------------------------
+
 Instalacao
 
 1. Baixe o instalador na pagina de Releases do GitHub:
