@@ -85,9 +85,10 @@ void listarSaves(void)
     puts("\nSaves Disponiveis:");
     puts("-----------------");
     
-    int encontrou_save = 0;
-    
-    for(int i = 1; i <= 5; i++)
+    bool encontrou_save = false;
+
+    int i;
+    for(i = 1; i <= 5; i++)
     {
         char caminho[100];
         sprintf(caminho, PASTA_SAVE "save0%d.txt", i);
@@ -111,7 +112,7 @@ void listarSaves(void)
             }
             
             printf("%d - %s (%s)\n", i, nome_personagem, classe);
-            encontrou_save = 1;
+            encontrou_save = true;
             fclose(arquivo);
         }
         else
@@ -154,7 +155,8 @@ Personagem carregarSave(int slot)
     sprintf(caminho, PASTA_SAVE "save0%d.txt", slot);
     
     FILE *arquivo = fopen(caminho, "r");
-    if(arquivo == NULL) {
+    if(arquivo == NULL)
+    {
         printf("Erro: Save %d nao encontrado.\n", slot);
         Personagem p_vazio = {0};
         return p_vazio;
@@ -173,7 +175,8 @@ Personagem carregarSave(int slot)
         {
             sscanf(linha, "#Classe<%[^>]>", nome_classe);
             
-            for(int i = 0; i < NUM_CLASSES; i++) {
+            for(int i = 0; i < NUM_CLASSES; i++)
+            {
                 if(strcmp(CLASSES[i].nome, nome_classe) == 0)
                 {
                     p.classe = CLASSES[i];

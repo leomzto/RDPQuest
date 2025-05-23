@@ -40,6 +40,6 @@ Atualizações
 Contato
 
 Desenvolvido por Leonardo P. Manzato
-- Email: leopmanzato@gmai.com
+- Email: leopmanzato@gmail.com
 
 --------------------------------------
