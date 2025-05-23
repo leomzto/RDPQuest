@@ -6,6 +6,4 @@ rdp/icons/
 
 rdp/crun.bat
 
-README.txt
-license.txt
-scriptInstalador.nsi
+instalador/
