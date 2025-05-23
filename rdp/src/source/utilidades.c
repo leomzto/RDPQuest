@@ -1,5 +1,5 @@
 #include "includes.h"
-#include <stdlib.h>
+#include <stdio.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -7,39 +7,34 @@
 #include <unistd.h>
 #endif
 
-void limparBuffer(void)
-{
+void limparBuffer(void) {
     while(getchar() != '\n');
 }
 
-void animacaoCarregamento(int tempo_da_animacao, char caractere_da_animacao, int tempo_pos_animacao)
-{
-    int i;
-    for(i = 0; i < tempo_da_animacao; i++)
-    {
-#ifdef _WIN32
-        Sleep(250); // milissegundos
-#else
-        usleep(250000); // microssegundos
-#endif
-        printf("%c", caractere_da_animacao);
+void animacaoCarregamento(int tempo, char caractere, int espera) {
+    for(int i = 0; i < tempo; i++) {
+        #ifdef _WIN32
+        Sleep(250);
+        #else
+        usleep(250000);
+        #endif
+        putchar(caractere);
         fflush(stdout);
     }
-
-#ifdef _WIN32
-    Sleep(tempo_pos_animacao * 1000);
-#else
-    sleep(tempo_pos_animacao);
-#endif
+    
+    #ifdef _WIN32
+    Sleep(espera * 1000);
+    #else
+    sleep(espera);
+    #endif
 }
 
-void limparTela(int tempo)
-{
-#ifdef _WIN32
-    Sleep(tempo * 1000);
+void limparTela(int espera) {
+    #ifdef _WIN32
+    Sleep(espera * 1000);
     system("cls");
-#else
-    sleep(tempo);
+    #else
+    sleep(espera);
     system("clear");
-#endif
+    #endif
 }

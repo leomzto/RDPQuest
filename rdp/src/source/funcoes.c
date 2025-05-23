@@ -1,5 +1,6 @@
 #include "includes.h"
 
+
 int menu(void) 
 {
     int opcao;
@@ -8,95 +9,195 @@ int menu(void)
     {
         limparTela(0);
         
-        puts("-=- RPG -=-");
+        puts("-=- Rogue De Prompt -=-");
         puts("1. Novo Jogo");
-        puts("2. Sair");
+        puts("2. Carregar Save");
+        puts("3. Sair");
         printf(" --> ");
         
-        if(scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2)
+        if(scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 3)
         {
             puts("Opcao invalida!");
             limparBuffer();
             sleep(1);
             continue;
         }
-        
-        if(opcao == 1)
+
+        switch(opcao)
         {
-            limparTela(0);
-            puts("\nCarregando jogo");
-            printf("Progresso: [");
-            animacaoCarregamento(10, '#', 0);
-            puts("] 100%\n");
-            sleep(1);
+            case 1:  // criar novo jogo
+            {
+                limparTela(0);
+                puts("Criando Mundo");
+                printf("Progresso: [");
+                animacaoCarregamento(10, '#', 0);
+                puts("] 100%");
+                
+                Personagem p = criarPersonagem();
+                novoJogo(p);
+                return 1;
+            }
+            case 2:  // carregar jogo
+            {
+                limparTela(0);
+                listarSaves();
+                
+                int slot;
+                printf("\nEscolha o save (1-5): ");
+                if(scanf("%d", &slot) != 1 || slot < 1 || slot > 5)
+                {
+                    puts("Slot invalido!");
+                    limparBuffer();
+                    sleep(1);
+                    continue;
+                }
+                
+                limparTela(0);
+                puts("Carregando Save");
+                printf("Progresso: [");
+                animacaoCarregamento(10, '#', 0);
+                puts("] 100%");
+                
+                Personagem p = carregarSave(slot);
+                if(strlen(p.nome) > 0)
+                {
+                    printf("\nSave de %s carregado!\n", p.nome);
+                    sleep(1);
+                    novoJogo(p);
+                }
+                break;
+            }
+            case 3:  // sair
+            {
+                puts("\nSaindo do jogo...");
+                animacaoCarregamento(5, '.', 1);
+                exit(0);
+            }
         }
         
-    } while(opcao < 1 || opcao > 2);
+    } while(true);
     
     return opcao;
 }
 
-Personagem criarPersonagem(void)
+void listarSaves(void)
 {
-    limparBuffer();
-    limparTela(0);
-    // criaçao do personagem
-    Personagem p;
-    puts("Cricao de personagem:");
-    printf("Nome -> ");
-    fgets(p.nome, sizeof(p.nome), stdin);
-    p.nome[strcspn(p.nome, "\n")] = '\0';
-    p.nome[0] = toupper(p.nome[0]);
-
-    limparTela(0);
-    printf("%s esta nascendo.\n", p.nome);
-    animacaoCarregamento(10, '.', 1);
-
-    // escolha da classe
-    char escolha_classe[20];
-    bool classe_valida = false;
-    int i;
-    printf("\n\nEscolha a classe de %s:\n", p.nome);
-    for (i = 0; i < NUM_CLASSES; i++)
-        printf("%d. %s | HP: %.1f | ATQ: %.1f | DEF: %.1f\n",
-                i + 1, CLASSES[i].nome, CLASSES[i].vida, CLASSES[i].dano, CLASSES[i].defesa);
-
-    while(!classe_valida)
+    puts("\nSaves Disponiveis:");
+    puts("-----------------");
+    
+    int encontrou_save = 0;
+    
+    for(int i = 1; i <= 5; i++)
     {
-        printf("\nEu escolho ");
-        fgets(escolha_classe, sizeof(escolha_classe), stdin);
-        escolha_classe[strcspn(escolha_classe, "\n")] = '\0';
-
-        for(i = 0; i < NUM_CLASSES; i++)
-        {
-            if(strcasecmp(escolha_classe, CLASSES[i].nome) == 0 || (isdigit(escolha_classe[0]) && atoi(escolha_classe) == i))
+        char caminho[100];
+        sprintf(caminho, PASTA_SAVE "save0%d.txt", i);
+        
+        FILE *arquivo = fopen(caminho, "r");
+        if(arquivo != NULL) {
+            char nome_personagem[50] = "Vazio";
+            char classe[20] = "Desconhecida";
+            char linha[100];
+            
+            while(fgets(linha, sizeof(linha), arquivo) != NULL)
             {
-                limparTela(1);
-
-                p.classe = CLASSES[i];
-                printf("Atribuindo a classe %s a %s.\n",p.classe.nome, p.nome);
-                animacaoCarregamento(10, '.', 1);
-                
-                printf("\n\n%s agora e %s\n", p.nome, p.classe.nome);
-                classe_valida = true;
-
-                limparTela(2);
-                break;
+                if(strstr(linha, "#Nome<") != NULL)
+                {
+                    sscanf(linha, "#Nome<%[^>]>", nome_personagem);
+                }
+                else if(strstr(linha, "#Classe<") != NULL)
+                {
+                    sscanf(linha, "#Classe<%[^>]>", classe);
+                }
             }
+            
+            printf("%d - %s (%s)\n", i, nome_personagem, classe);
+            encontrou_save = 1;
+            fclose(arquivo);
         }
+        else
+            printf("%d - Slot vazio\n", i);
+    }
+    
+    if(!encontrou_save)
+        puts("Nenhum save encontrado!");
+    puts("-----------------");
+}
 
-        if(!classe_valida)
-            puts("Classe invalida.");
+void salvarJogo(Personagem *p, int espaco)
+{
+    char caminho[100];
+    sprintf(caminho, PASTA_SAVE "save0%d.txt", espaco);
+
+    FILE *arquivo = fopen(caminho, "w");
+    if(arquivo == NULL)
+    {
+        puts("Erro ao salvar progresso.");
+        return;
     }
 
-    p.vida = p.classe.vida;
-    p.dano = p.classe.dano;
-    p.defesa = p.classe.defesa;
+    fprintf(arquivo, "#Nome<%s>\n", p->nome);
+    fprintf(arquivo, "#Classe<%s>\n", p->classe.nome);
+    fprintf(arquivo, "#Vida<%.0f/%.0f>\n", p->vida, p->vida_max);
+    fprintf(arquivo, "#Dano<%.0f>\n", p->dano);
+    fprintf(arquivo, "#Defesa<%.0f>\n", p->defesa);
+    //nivel fprintf(arquivo, "#Nivel<%d>\n", p->nivel);
+    //xp    fprintf(arquivo, "#xp<%.0f>\n", p->xp);
+    //itens inventario
 
-    p.vida_max = p.classe.vida;
-    p.dano_max = p.classe.dano;
-    p.defesa_max = p.classe.defesa;
+    fclose(arquivo);
+    printf("Salvo!\n%s\n", caminho);
+}
 
+Personagem carregarSave(int slot)
+{
+    char caminho[100];
+    sprintf(caminho, PASTA_SAVE "save0%d.txt", slot);
+    
+    FILE *arquivo = fopen(caminho, "r");
+    if(arquivo == NULL) {
+        printf("Erro: Save %d nao encontrado.\n", slot);
+        Personagem p_vazio = {0};
+        return p_vazio;
+    }
+
+    Personagem p = {0};
+    char linha[100];
+    char nome_classe[20];
+
+    while(fgets(linha, sizeof(linha), arquivo) != NULL)
+    {
+        if(strstr(linha, "#Nome<") != NULL) 
+            sscanf(linha, "#Nome<%[^>]>", p.nome);
+        
+        else if(strstr(linha, "#Classe<") != NULL)
+        {
+            sscanf(linha, "#Classe<%[^>]>", nome_classe);
+            
+            for(int i = 0; i < NUM_CLASSES; i++) {
+                if(strcmp(CLASSES[i].nome, nome_classe) == 0)
+                {
+                    p.classe = CLASSES[i];
+                    break;
+                }
+            }
+        }
+        else if(strstr(linha, "#Vida<") != NULL) 
+            sscanf(linha, "#Vida<%f/%f>", &p.vida, &p.vida_max);
+        
+        else if(strstr(linha, "#Dano<") != NULL) 
+            sscanf(linha, "#Dano<%f>", &p.dano);
+        
+        else if(strstr(linha, "#Defesa<") != NULL) 
+            sscanf(linha, "#Defesa<%f>", &p.defesa);
+    }
+    
+    fclose(arquivo);
+    
+    if(strlen(p.nome) == 0) 
+        printf("ERRO: Save %d esta corrompido.\n", slot);
+    else 
+        printf("Save %d carregado com sucesso!\n", slot);
+    
     return p;
 }
 
@@ -105,12 +206,13 @@ void novoJogo(Personagem p)
     while(p.vida > 0)
     {
         int escolha;
-        puts("O que voce que fazer agora?");
-        puts("1. Procurar monstros");
-        puts("2. Desafiar masmorra");
-        printf("3. Ver [%s]\n", p.nome);
-        puts("0. Voltar ao menu");
-        printf("Escolha -> ");
+        puts("<< Rogue de Prompt >>\n");
+        puts("| 1. Procurar monstros");
+        puts("| 2. Desafiar masmorra");
+        printf("| 3. Ver [%s]\n", p.nome);
+        puts("| 4. Salvar progresso");
+        puts("|  0. Voltar ao menu");
+        printf("\nEscolha -> ");
         scanf("%d", &escolha);
         limparBuffer();
 
@@ -135,8 +237,106 @@ void novoJogo(Personagem p)
                 mostrarStatus(&p);
                 break;
             }
+            case 4:
+            {
+                int slot;
+                listarSaves();
+                printf("Escolha o slot para salvar (1-5): ");
+                scanf("%d", &slot);
+                limparBuffer();
+                salvarJogo(&p, slot);
+                break;
+            }
         }
     }
+}
+
+Personagem criarPersonagem(void)
+{
+    limparBuffer();
+    limparTela(0);
+    // criaçao do personagem
+    Personagem p;
+    puts("Cricao de personagem:");
+    printf("Nome -> ");
+    fgets(p.nome, sizeof(p.nome), stdin);
+    p.nome[strcspn(p.nome, "\n")] = '\0';
+    p.nome[0] = toupper(p.nome[0]);
+
+    limparTela(0);
+    printf("%s esta nascendo.\n", p.nome);
+    animacaoCarregamento(10, '.', 1);
+
+    // escolha da classe
+    char escolha_classe[20];
+    bool classe_valida = false;
+    int i;
+    printf("\n\nEscolha a classe de %s:\n", p.nome);
+    for (i = 1; i < NUM_CLASSES; i++)
+        printf("%d. %s | HP: %.1f | ATQ: %.1f | DEF: %.1f\n",
+                i, CLASSES[i].nome, CLASSES[i].vida, CLASSES[i].dano, CLASSES[i].defesa);
+
+    while(!classe_valida)
+    {
+        printf("\nEu escolho ");
+        fgets(escolha_classe, sizeof(escolha_classe), stdin);
+        escolha_classe[strcspn(escolha_classe, "\n")] = '\0';
+
+        for(i = 0; i < NUM_CLASSES; i++)
+        {
+            if(strcasecmp(escolha_classe, CLASSES[i].nome) == 0 || (isdigit(escolha_classe[0]) && atoi(escolha_classe) == i))
+            {
+                limparTela(1);
+
+                p.classe = CLASSES[i];
+                printf("Atribuindo a classe %s a %s.\n",p.classe.nome, p.nome);
+                animacaoCarregamento(10, '.', 1);
+                
+                p.classe.nome[0] = tolower(p.classe.nome[0]);
+                printf("\n\n%s agora pertence a classe %s\n", p.nome, p.classe.nome);
+                classe_valida = true;
+
+                limparTela(2);
+                break;
+            }
+        }
+
+        if(!classe_valida)
+            puts("Classe invalida.");
+    }
+
+    p.vida = p.classe.vida;
+    p.dano = p.classe.dano;
+    p.defesa = p.classe.defesa;
+
+    p.vida_max = p.classe.vida;
+    p.dano_max = p.classe.dano;
+    p.defesa_max = p.classe.defesa;
+
+    return p;
+}
+
+void mostrarStatus(Personagem *p)
+{
+    limparTela(0);
+    printf("\nNome: %s", p->nome);
+    printf("\nClasse: %s", p->classe.nome);
+    printf("\nNivel: <nivel>");
+
+    barraVida("\nVida", p->vida, p->classe.vida);
+    printf("\nDano: %.1f", p->dano);
+    printf("\nDefesa: %.1f", p->defesa);
+
+    char escolha;
+    puts("\nDeseja abrir o inventario?");
+    puts("S / N --> ");
+    scanf(" %c", &escolha);
+    escolha = tolower(escolha);
+
+    if(escolha == 's')
+        puts("<abrir inventario>");
+    
+    limparBuffer();
 }
 
 void iniciarBatalha(Personagem *p, Inimigo *i)
@@ -332,29 +532,6 @@ Inimigo gerarInimigosMasmorra(int andar)
     inimigo.defesa *= dificuldade;
 
     return inimigo;
-}
-
-void mostrarStatus(Personagem *p)
-{
-    limparTela(0);
-    printf("\nNome: %s", p->nome);
-    printf("\nClasse: %s", p->classe.nome);
-    printf("\nNivel: <nivel>");
-
-    barraVida("\nVida", p->vida, p->classe.vida);
-    printf("\nDano: %.1f", p->dano);
-    printf("\nDefesa: %.1f", p->defesa);
-
-    char escolha;
-    puts("\nDeseja abrir o inventario?");
-    puts("S / N --> ");
-    scanf(" %c", &escolha);
-    escolha = tolower(escolha);
-
-    if(escolha == 's')
-        puts("<abrir inventario>");
-    
-    limparBuffer();
 }
 
 void barraVida(char *nome, float vida_atual, float vida_max)

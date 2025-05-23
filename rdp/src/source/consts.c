@@ -2,7 +2,7 @@
 
 
 const Classe CLASSES[] = {
-    {"Teste", 1000.0f, 1000.0f, 1000.0f},
+    {"suprema", 1000.0f, 1000.0f, 1000.0f},
     {"Guerreiro", 120.0f, 20.0f, 15.0f},
     {"Mago", 80.0f, 30.0f, 5.0f},
     {"Arqueiro", 100.0f, 25.0f, 10.0f},

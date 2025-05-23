@@ -7,12 +7,17 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <unistd.h>
+#endif
 
 #include "defines.h"
-#include "consts.h"
 #include "estruturas.h"
-#include "utilidades.h"
+#include "consts.h"
 #include "funcoes.h"
+#include "utilidades.h"
 
 #endif
