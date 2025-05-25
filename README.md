@@ -1,6 +1,6 @@
 RDPQuest - Rogue de Prompt
 
-RDPQuest é um RPG jogável via terminal, com sistema de classes, inimigos, masmorras e batalhas.
+RDPQuest é um RPG jogável via terminal, com sistema de classes, inimigos, masmorras, batalhas e com SAVE disponível.
 
 --------------------------------------
 
@@ -10,12 +10,12 @@ Demonstração
 
 --------------------------------------
 
-Instalacao
+Instalação
 
 1. Baixe o instalador na pagina de Releases do GitHub:
    https://github.com/leomzto/rdpquest/releases
 2. Execute o instalador e siga as instrucoes.
-3. O jogo sera instalado em "Arquivos de Programas (x86)\rdpquestgame".
+3. O jogo sera instalado em "C:\Program Files (x86)\RDPQuest".
 4. Um atalho sera criado na sua area de trabalho.
 
 --------------------------------------
@@ -31,8 +31,7 @@ Como Jogar
 Requisitos
 
 - Windows 7+
-- Linux
-- Terminal ou Prompt de Comando
+- Prompt de Comando
 
 --------------------------------------
 
@@ -43,9 +42,8 @@ Atualizações
 
 --------------------------------------
 
-Contato
-
 Desenvolvido por Leonardo P. Manzato
-- Email: leopmanzato@gmail.com
+- GitHub: [leomzto/](https://github.com/leomzto)
+- LinkedIn: [in/leomzto/](www.linkedin.com/in/leomzto)
 
 --------------------------------------
