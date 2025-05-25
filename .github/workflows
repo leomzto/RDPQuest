@@ -1,0 +1,11 @@
+# .github/workflows/teste.yml
+name: Meu Workflow
+
+on: [push]
+
+jobs:
+  rodar-comandos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mostrar mensagem
+        run: echo "Olá, mundo!"
