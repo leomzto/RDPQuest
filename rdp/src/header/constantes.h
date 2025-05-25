@@ -1,5 +1,5 @@
-#ifndef CONSTS_H
-#define CONSTS_H
+#ifndef CONSTANTES_H
+#define CONSTANTES_H
 
 #include "estruturas.h"
 

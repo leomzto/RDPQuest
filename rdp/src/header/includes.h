@@ -1,23 +1,19 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
 
+// lib headers
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-
-#ifdef _WIN32
 #include <windows.h>
-#else
-#include <unistd.h>
-#endif
 
+// source headers
 #include "defines.h"
 #include "estruturas.h"
-#include "consts.h"
+#include "constantes.h"
 #include "funcoes.h"
-#include "utilidades.h"
 
 #endif
