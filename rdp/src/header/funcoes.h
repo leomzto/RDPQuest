@@ -20,6 +20,7 @@
     Inimigo gerarInimigosMasmorra(int andar);
 
 // save_load
+    void criarPastaSaves();
     void listarSaves(void);
     void salvarJogo(Personagem *p, int espaco);
     Personagem carregarSave(int slot);

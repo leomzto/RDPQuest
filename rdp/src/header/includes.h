@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+#include <sys/stat.h>
 
 // source headers
 #include "defines.h"

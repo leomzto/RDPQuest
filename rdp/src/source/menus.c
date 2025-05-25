@@ -11,19 +11,25 @@ int menu(void)
         puts("-=- Rogue De Prompt -=-");
         puts("1. Novo Jogo");
         puts("2. Carregar Save");
-        puts("3. Sair");
+        puts("0. Sair");
         printf(" --> ");
         
-        if(scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 3)
+        if(scanf("%d", &opcao) != 1 || opcao < 0 || opcao > 2)
         {
             puts("Opcao invalida!");
             limparBuffer();
-            Sleep(1);
+            Sleep(1000);
             continue;
         }
 
         switch(opcao)
         {
+            case 0:  // sair
+            {
+                puts("\nSaindo do jogo");
+                animacaoCarregamento(5, '.', 1);
+                exit(0);
+            }
             case 1:  // criar novo jogo
             {
                 limparTela(0);
@@ -60,17 +66,10 @@ int menu(void)
                 Personagem p = carregarSave(slot);
                 if(strlen(p.nome) > 0)
                 {
-                    printf("\nSave de %s carregado!\n", p.nome);
-                    Sleep(1);
+                    limparTela(1);
                     jogo(p);
                 }
                 break;
-            }
-            case 3:  // sair
-            {
-                puts("\nSaindo do jogo...");
-                animacaoCarregamento(5, '.', 1);
-                exit(0);
             }
         }
         

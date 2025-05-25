@@ -1,6 +1,12 @@
 #include "includes.h"
 
-#define PASTA_SAVE "/game/saves/" // caminho do save
+#define PASTA_SAVE "C:\\Program Files (x86)\\RDPQuest\\game\\saves\\" // caminho do save pro instalador
+// #define PASTA_SAVE "saves/" // caminho do save para testes
+
+void criarPastaSaves()
+{
+    mkdir(PASTA_SAVE);
+}
 
 void listarSaves(void)
 {
@@ -13,10 +19,11 @@ void listarSaves(void)
     for(i = 1; i <= 5; i++)
     {
         char caminho[100];
-        sprintf(caminho, PASTA_SAVE "save0%d.txt", i);
+        sprintf(caminho, PASTA_SAVE "save0%d.sav", i);
         
         FILE *arquivo = fopen(caminho, "r");
-        if(arquivo != NULL) {
+        if(arquivo != NULL)
+        {
             char nome_personagem[50] = "Vazio";
             char classe[20] = "Desconhecida";
             char linha[100];
@@ -24,16 +31,12 @@ void listarSaves(void)
             while(fgets(linha, sizeof(linha), arquivo) != NULL)
             {
                 if(strstr(linha, "#Nome<") != NULL)
-                {
                     sscanf(linha, "#Nome<%[^>]>", nome_personagem);
-                }
                 else if(strstr(linha, "#Classe<") != NULL)
-                {
                     sscanf(linha, "#Classe<%[^>]>", classe);
-                }
             }
             
-            printf("%d - %s (%s)\n", i, nome_personagem, classe);
+            printf("%d - %s[nivel] (%s)\n", i, nome_personagem, classe);
             encontrou_save = true;
             fclose(arquivo);
         }
@@ -49,7 +52,7 @@ void listarSaves(void)
 void salvarJogo(Personagem *p, int espaco)
 {
     char caminho[100];
-    sprintf(caminho, PASTA_SAVE "save0%d.txt", espaco);
+    sprintf(caminho, PASTA_SAVE "save0%d.sav", espaco);
 
     FILE *arquivo = fopen(caminho, "w");
     if(arquivo == NULL)
@@ -60,11 +63,12 @@ void salvarJogo(Personagem *p, int espaco)
 
     fprintf(arquivo, "#Nome<%s>\n", p->nome);
     fprintf(arquivo, "#Classe<%s>\n", p->classe.nome);
-    fprintf(arquivo, "#Vida<%.0f/%.0f>\n", p->vida, p->vida_max);
-    fprintf(arquivo, "#Dano<%.0f>\n", p->dano);
-    fprintf(arquivo, "#Defesa<%.0f>\n", p->defesa);
-    //nivel fprintf(arquivo, "#Nivel<%d>\n", p->nivel);
-    //xp    fprintf(arquivo, "#xp<%.0f>\n", p->xp);
+    fprintf(arquivo, "#Vida<%.2f/%.2f>\n", p->vida, p->vida_max);
+    fprintf(arquivo, "#Dano<%.2f>\n", p->dano);
+    fprintf(arquivo, "#Defesa<%.2f>\n", p->defesa);
+    // nivel -> fprintf(arquivo, "#Nivel<%d>\n", p->nivel);
+    // xp -> fprintf(arquivo, "#XP<%.3f>\n", p->xp);
+
     //itens inventario
 
     fclose(arquivo);
@@ -74,7 +78,7 @@ void salvarJogo(Personagem *p, int espaco)
 Personagem carregarSave(int slot)
 {
     char caminho[100];
-    sprintf(caminho, PASTA_SAVE "save0%d.txt", slot);
+    sprintf(caminho, PASTA_SAVE "save0%d.sav", slot);
     
     FILE *arquivo = fopen(caminho, "r");
     if(arquivo == NULL)
@@ -108,10 +112,8 @@ Personagem carregarSave(int slot)
         }
         else if(strstr(linha, "#Vida<") != NULL) 
             sscanf(linha, "#Vida<%f/%f>", &p.vida, &p.vida_max);
-        
         else if(strstr(linha, "#Dano<") != NULL) 
             sscanf(linha, "#Dano<%f>", &p.dano);
-        
         else if(strstr(linha, "#Defesa<") != NULL) 
             sscanf(linha, "#Defesa<%f>", &p.defesa);
     }
