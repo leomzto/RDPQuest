@@ -1,12 +1,39 @@
-RDPQuest - Rogue de Prompt
+# Rogue De Prompt - RDPQuest ⚔️
 
-RDPQuest é um RPG jogável via terminal, com sistema de classes, inimigos, masmorras, batalhas e com SAVE disponível.
+Um RPG de terminal feito em C. Crie seu personagem, enfrente inimigos e avance por masmorras!
 
---------------------------------------
+## 🎮 Demonstração
 
-Demonstração
+📷 ![Demo](https://s14.gifyu.com/images/bso2d.gif)
 
-![Demo](https://s14.gifyu.com/images/bso2d.gif)
+## 🚀 Como usar
+
+Faça o download clicando [aqui](https://github.com/leomzto/projetos/releases/tag/rpg_RDPQuest)
+
+## 🧠 Sobre o jogo
+
+- RPG no estilo texto com batalhas por turno.
+- Sistema de criação de personagem.
+- Progressão
+- Inimigos aleatórios e masmorras com andares.
+
+## ✅ Funcionalidades
+
+- [x] Criação de personagem com atributos
+- [x] Combate contra inimigos aleatórios
+- [x] Barra de vida
+- [x] Progressão de personagem
+- [x] Sistema de masmorra por andares
+- [x] Sistema de salvamento (pasta `../saves/`)
+
+## 🛠 Tecnologias usadas
+
+- Linguagem C
+- Terminal (Windows via terminal compatível)
+
+## 👨‍💻 Autor
+
+Feito com ⚔️ por [Leo Manzato](https://github.com/leomzto)
 
 --------------------------------------
 
@@ -20,30 +47,9 @@ Instalação
 
 --------------------------------------
 
-Como Jogar
-
-- Abra o atalho na area de trabalho ou execute o programa instalado.
-- Use o teclado para navegar pelas opcoes.
-- Explore, lute contra inimigos e evolua seu personagem.
-
---------------------------------------
-
 Requisitos
 
 - Windows 7+
 - Prompt de Comando
-
---------------------------------------
-
-Atualizações
-
-- Baixe sempre a ultima versão disponível no GitHub.
-- Ao instalar uma nova versão, a instalação anterior sera atualizada automaticamente.
-
---------------------------------------
-
-Desenvolvido por Leonardo P. Manzato
-- GitHub: [leomzto/](https://github.com/leomzto)
-- LinkedIn: [in/leomzto/](www.linkedin.com/in/leomzto)
 
 --------------------------------------
