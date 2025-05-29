@@ -2,14 +2,15 @@
 #define INCLUDES_H
 
 // lib headers
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <time.h>
-#include <windows.h>
-#include <sys/stat.h>
+#include <stdio.h> //
+#include <string.h> //
+#include <ctype.h> //
+#include <stdbool.h> //
+#include <stdlib.h> //
+#include <time.h> //
+#include <windows.h> //
+#include <sys/stat.h> // POSIX (linux, mac)
+#include <direct.h> //
 
 // source headers
 #include "defines.h"

@@ -1,5 +1,5 @@
 #include "includes.h"
-
+//adicionado tudo em utility.c
 void limparBuffer(void)
 {
     while(getchar() != '\n');

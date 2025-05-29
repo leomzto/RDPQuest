@@ -1,19 +1,21 @@
 #include "includes.h"
 
-int menu(void) 
+
+// adicionado em game.c
+int menu(void)
 {
     int opcao;
-    
+
     do
     {
         limparTela(0);
-        
+
         puts("-=- Rogue De Prompt -=-");
         puts("1. Novo Jogo");
         puts("2. Carregar Save");
         puts("0. Sair");
         printf(" --> ");
-        
+
         if(scanf("%d", &opcao) != 1 || opcao < 0 || opcao > 2)
         {
             puts("Opcao invalida!");
@@ -37,7 +39,7 @@ int menu(void)
                 printf("Progresso: [");
                 animacaoCarregamento(10, '#', 0);
                 puts("] 100%");
-                
+
                 Personagem p = criarPersonagem();
                 jogo(p);
                 return 1;
@@ -46,7 +48,7 @@ int menu(void)
             {
                 limparTela(0);
                 listarSaves();
-                
+
                 int slot;
                 printf("\nEscolha o save (1-5): ");
                 if(scanf("%d", &slot) != 1 || slot < 1 || slot > 5)
@@ -56,13 +58,13 @@ int menu(void)
                     Sleep(1);
                     continue;
                 }
-                
+
                 limparTela(0);
                 puts("Carregando Save");
                 printf("Progresso: [");
                 animacaoCarregamento(10, '#', 0);
                 puts("] 100%");
-                
+
                 Personagem p = carregarSave(slot);
                 if(strlen(p.nome) > 0)
                 {
@@ -72,12 +74,13 @@ int menu(void)
                 break;
             }
         }
-        
+
     } while(true);
-    
+
     return opcao;
 }
 
+// adicionado em game.c
 void jogo(Personagem p)
 {
     while(p.vida > 0)

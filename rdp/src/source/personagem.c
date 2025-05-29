@@ -1,12 +1,14 @@
 #include "includes.h"
 
+
+// adicionado a player.c
 Personagem criarPersonagem(void)
 {
     limparBuffer();
     limparTela(0);
     // criaçao do personagem
     Personagem p;
-    puts("Cricao de personagem:");
+    puts("Criacao de personagem:");
     printf("Nome -> ");
     fgets(p.nome, sizeof(p.nome), stdin);
     p.nome[strcspn(p.nome, "\n")] = '\0';
@@ -40,7 +42,7 @@ Personagem criarPersonagem(void)
                 p.classe = CLASSES[i];
                 printf("Atribuindo a classe %s a %s.\n",p.classe.nome, p.nome);
                 animacaoCarregamento(10, '.', 1);
-                
+
                 p.classe.nome[0] = tolower(p.classe.nome[0]);
                 printf("\n\n%s agora pertence a classe %s\n", p.nome, p.classe.nome);
                 classe_valida = true;
@@ -65,6 +67,8 @@ Personagem criarPersonagem(void)
     return p;
 }
 
+
+ // adicionado em player.c
 void mostrarStatus(Personagem *p)
 {
     limparTela(0);
@@ -84,6 +88,6 @@ void mostrarStatus(Personagem *p)
 
     if(escolha == 's')
         puts("<abrir inventario>");
-    
+
     limparBuffer();
 }

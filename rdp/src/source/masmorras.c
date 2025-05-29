@@ -1,6 +1,7 @@
 #include "includes.h"
 
-void desafiarMasmorra(Personagem *p, Masmorra *m) 
+// adicionado em dungeon.c
+void desafiarMasmorra(Personagem *p, Masmorra *m)
 {
     int i;
 
@@ -21,26 +22,26 @@ void desafiarMasmorra(Personagem *p, Masmorra *m)
     }
 
     while(m->andar_atual < NUM_ANDARES && m->ativa)
-    {   
+    {
         printf("\nExplorando - Andar [%d]/[%d]\n", m->andar_atual + 1, NUM_ANDARES);
         animacaoCarregamento(10, '.', 0);
         puts("\nInimigo encontrado!");
 
         Inimigo* inimigo_atual = &m->inimigos_masmorra[m->andar_atual];
-        
+
         iniciarBatalha(p, inimigo_atual);
 
         if (p->vida > 0 && (*inimigo_atual).vida <= 0)
         {
             printf("\n%s derrotou o inimigo do andar %d!\n", p->nome, m->andar_atual + 1);
             m->andar_atual++;
-            
+
             p->vida += p->classe.vida * 0.3;
             if (p->vida > p->classe.vida)
                 p->vida = p->classe.vida;
-            
+
             limparTela(1);
-        } 
+        }
         else if(p->vida <= 0)
         {
             m->ativa = false;
@@ -56,7 +57,7 @@ void desafiarMasmorra(Personagem *p, Masmorra *m)
         p->dano += 5;
     }
 }
-
+// adicionado em enemy.c
 Inimigo gerarInimigosMasmorra(int andar)
 {
     Inimigo inimigo = gerarInimigos();

@@ -3,16 +3,20 @@
 #define PASTA_SAVE "C:\\Program Files (x86)\\RDPQuest\\game\\saves\\" // caminho do save pro instalador
 // #define PASTA_SAVE "saves/" // caminho do save para testes
 
-void criarPastaSaves()
+
+// adicionado em funcionalities.c
+void criarPastaSaves(void)
 {
     mkdir(PASTA_SAVE);
 }
 
+
+// adicionado em funcionalities.c
 void listarSaves(void)
 {
     puts("\nSaves Disponiveis:");
     puts("-----------------");
-    
+
     bool encontrou_save = false;
 
     int i;
@@ -20,14 +24,14 @@ void listarSaves(void)
     {
         char caminho[100];
         sprintf(caminho, PASTA_SAVE "save0%d.sav", i);
-        
+
         FILE *arquivo = fopen(caminho, "r");
         if(arquivo != NULL)
         {
             char nome_personagem[50] = "Vazio";
             char classe[20] = "Desconhecida";
             char linha[100];
-            
+
             while(fgets(linha, sizeof(linha), arquivo) != NULL)
             {
                 if(strstr(linha, "#Nome<") != NULL)
@@ -35,7 +39,7 @@ void listarSaves(void)
                 else if(strstr(linha, "#Classe<") != NULL)
                     sscanf(linha, "#Classe<%[^>]>", classe);
             }
-            
+
             printf("%d - %s[nivel] (%s)\n", i, nome_personagem, classe);
             encontrou_save = true;
             fclose(arquivo);
@@ -43,12 +47,13 @@ void listarSaves(void)
         else
             printf("%d - Slot vazio\n", i);
     }
-    
+
     if(!encontrou_save)
         puts("Nenhum save encontrado!");
     puts("-----------------");
 }
 
+// adicionado em funcionalities.c
 void salvarJogo(Personagem *p, int espaco)
 {
     char caminho[100];
@@ -75,11 +80,12 @@ void salvarJogo(Personagem *p, int espaco)
     printf("Salvo!\n%s\n", caminho);
 }
 
+// adicionado em funcionalities.c
 Personagem carregarSave(int slot)
 {
     char caminho[100];
     sprintf(caminho, PASTA_SAVE "save0%d.sav", slot);
-    
+
     FILE *arquivo = fopen(caminho, "r");
     if(arquivo == NULL)
     {
@@ -94,13 +100,13 @@ Personagem carregarSave(int slot)
 
     while(fgets(linha, sizeof(linha), arquivo) != NULL)
     {
-        if(strstr(linha, "#Nome<") != NULL) 
+        if(strstr(linha, "#Nome<") != NULL)
             sscanf(linha, "#Nome<%[^>]>", p.nome);
-        
+
         else if(strstr(linha, "#Classe<") != NULL)
         {
             sscanf(linha, "#Classe<%[^>]>", nome_classe);
-            
+
             for(int i = 0; i < NUM_CLASSES; i++)
             {
                 if(strcmp(CLASSES[i].nome, nome_classe) == 0)
@@ -110,20 +116,20 @@ Personagem carregarSave(int slot)
                 }
             }
         }
-        else if(strstr(linha, "#Vida<") != NULL) 
+        else if(strstr(linha, "#Vida<") != NULL)
             sscanf(linha, "#Vida<%f/%f>", &p.vida, &p.vida_max);
-        else if(strstr(linha, "#Dano<") != NULL) 
+        else if(strstr(linha, "#Dano<") != NULL)
             sscanf(linha, "#Dano<%f>", &p.dano);
-        else if(strstr(linha, "#Defesa<") != NULL) 
+        else if(strstr(linha, "#Defesa<") != NULL)
             sscanf(linha, "#Defesa<%f>", &p.defesa);
     }
-    
+
     fclose(arquivo);
-    
-    if(strlen(p.nome) == 0) 
+
+    if(strlen(p.nome) == 0)
         printf("ERRO: Save %d esta corrompido.\n", slot);
-    else 
+    else
         printf("Save %d carregado com sucesso!\n", slot);
-    
+
     return p;
 }

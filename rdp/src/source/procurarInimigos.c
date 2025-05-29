@@ -1,5 +1,6 @@
 #include "includes.h"
 
+// adicionado em enemy.c
 void iniciarBatalha(Personagem *p, Inimigo *i)
 {
     char escolha_jogador[20];
@@ -45,7 +46,7 @@ void iniciarBatalha(Personagem *p, Inimigo *i)
 
                 i->vida -= golpe_jogador;
                 if (i->vida < 0) i->vida = 0;
-                
+
                 limparTela(1);
 
                 barraVida(p->nome, p->vida, vida_maxima_p);
@@ -62,7 +63,7 @@ void iniciarBatalha(Personagem *p, Inimigo *i)
 
                     p->vida -= golpe_inimigo;
                     if (p->vida < 0) p->vida = 0;
-                    
+
                     limparTela(1);
 
                     barraVida(p->nome, p->vida, vida_maxima_p);
@@ -87,7 +88,7 @@ void iniciarBatalha(Personagem *p, Inimigo *i)
         if(i->vida <= 0)
         {
             p->vida += p->classe.vida * 0.3;
-            if (p->vida > p->classe.vida) 
+            if (p->vida > p->classe.vida)
                 p->vida = p->classe.vida;
 
             printf("\nVoce venceu a luta contra %s!\n", i->nome);
@@ -105,6 +106,7 @@ void iniciarBatalha(Personagem *p, Inimigo *i)
     }
 }
 
+// adicionado em enemy.c
 Inimigo gerarInimigos(void)
 {
     float chance_spawn = 0.0f;

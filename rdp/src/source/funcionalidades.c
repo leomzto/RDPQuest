@@ -1,5 +1,7 @@
 #include "includes.h"
 
+
+// adicionado em funcionalities.c
 void barraVida(char *nome, float vida_atual, float vida_max)
 {
     int hp = (int)((vida_atual / vida_max) * TAMANHO_BARRA);

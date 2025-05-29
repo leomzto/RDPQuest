@@ -1,49 +1,52 @@
-RDPQuest - Rogue de Prompt
+# 🧩 RDPQuest - Rogue de Prompt
 
-RDPQuest é um RPG jogável via terminal, com sistema de classes, inimigos, masmorras, batalhas e com SAVE disponível.
+**RDPQuest** é um RPG jogável via terminal, com sistema de classes, inimigos, masmorras, batalhas e com SAVE disponível.
 
 --------------------------------------
 
-Demonstração
+## 🎥 Demonstração
 
 ![Demo](https://s14.gifyu.com/images/bso2d.gif)
 
 --------------------------------------
 
-Instalação
+## ⚙️ Instalação
 
-1. Baixe o instalador na pagina de Releases do GitHub:
+1. 📥 Baixe o instalador na página de Releases do GitHub:
    https://github.com/leomzto/rdpquest/releases
-2. Execute o instalador e siga as instrucoes.
-3. O jogo sera instalado em "C:\Program Files (x86)\RDPQuest".
-4. Um atalho sera criado na sua area de trabalho.
+2. 🛠️ Execute o instalador e siga as instruções.
+3. 📁 O jogo será instalado em:
+   `C:\Program Files (x86)\RDPQuest`
+4. 🖥️ Um atalho será criado na sua área de trabalho.
 
 --------------------------------------
 
-Como Jogar
+## 🕹️ Como Jogar
 
-- Abra o atalho na area de trabalho ou execute o programa instalado.
-- Use o teclado para navegar pelas opcoes.
-- Explore, lute contra inimigos e evolua seu personagem.
-
---------------------------------------
-
-Requisitos
-
-- Windows 7+
-- Prompt de Comando
+- 🖱️ Abra o atalho na área de trabalho ou execute o programa instalado.
+- ⌨️ Use o teclado para navegar pelas opções.
+- ⚔️ Explore, lute contra inimigos e evolua seu personagem.
+- 💾 Os saves ficam salvos em:
+  `C:/users/seu_usuario/.RDPQuest/saves/`
 
 --------------------------------------
 
-Atualizações
+## 💻 Requisitos
 
-- Baixe sempre a ultima versão disponível no GitHub.
-- Ao instalar uma nova versão, a instalação anterior sera atualizada automaticamente.
+- 🪟 Windows 7+
+- 💬 Prompt de Comando
 
 --------------------------------------
 
-Desenvolvido por Leonardo P. Manzato
-- GitHub: [leomzto/](https://github.com/leomzto)
-- LinkedIn: [in/leomzto/](www.linkedin.com/in/leomzto)
+## 🔄 Atualizações
+
+- 📦 Baixe sempre a última versão disponível no GitHub.
+- 🆙 Ao instalar uma nova versão, a instalação anterior será atualizada automaticamente.
+
+--------------------------------------
+
+## 👨‍💻 Desenvolvido por Leonardo P. Manzato
+- 🐙 GitHub: [leomzto/](https://github.com/leomzto)
+- 💼 LinkedIn: [in/leomzto/](www.linkedin.com/in/leomzto)
 
 --------------------------------------

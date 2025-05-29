@@ -1,6 +1,6 @@
 #include "includes.h"
 
-
+// adicionado em player.c
 const Classe CLASSES[] = {
     {"suprema", 1000.0f, 1000.0f, 1000.0f},
     {"Guerreiro", 120.0f, 20.0f, 15.0f},
@@ -11,6 +11,7 @@ const Classe CLASSES[] = {
     {"Ladino", 90.0f, 22.0f, 8.0f}
 };
 
+// adicionado em enemy.c
 const Inimigo INIMIGOS[] = {
     {"Esqueleto", 50.0f, 10.0f, 5.0f, 25.0f},
     {"Esqueleto Guerreiro", 80.0f, 15.0f, 8.0f, 15.0f},
