@@ -7,13 +7,13 @@ prompt_rogue
 prompt_rogue.exe
 
 # PT
-Portuguese version/
-Portuguese version/assets/
-Portuguese version/build/
+PT/
+PT/assets/
+PT/build/
 
 # EN
-English version/assets/
-English version/build/
+EN/assets/
+EN/build/
 
 # versions
 versions/
