@@ -7,6 +7,7 @@
 
 #include "player.h"
 #include "enemy.h"
+#include "combat.h"
 #include "dungeon.h"
 #include "utils.h"
 #include "save.h"

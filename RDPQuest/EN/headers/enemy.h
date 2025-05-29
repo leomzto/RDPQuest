@@ -3,7 +3,7 @@
 
 #include "player.h"
 
-#define QT_ENEMIES 12
+#define QT_ENEMIES 18
 
 typedef struct
 {
@@ -13,7 +13,6 @@ typedef struct
 } Enemy;
 
 Enemy createEnemy(void);
-int startBattle(Player *player, Enemy *enemy);
 Enemy createDungeonEnemy(int floor);
 
-#endif // ENEMY_H
+#endif

@@ -5,9 +5,12 @@
 
 #include "player.h"
 #include "enemy.h"
+#include "combat.h"
 #include "utils.h"
 #include "miscellaneous.h"
 #include "level.h"
+#include "items.h"
+#include <stdlib.h>
 
 void joinDungeon(Player *player, Dungeon *dungeon)
 {
@@ -34,7 +37,7 @@ void joinDungeon(Player *player, Dungeon *dungeon)
         Enemy *current_enemy = &dungeon->dungeon_enemies[dungeon->current_floor];
         int result = startBattle(player, current_enemy);
 
-        if(result == 1) // Win
+        if(result == 1) // Defeated current floor
         {
             printf("%s defeated the %d floor enemy!\n", player->name, dungeon->current_floor + 1);
             dungeon->current_floor++;
@@ -44,9 +47,13 @@ void joinDungeon(Player *player, Dungeon *dungeon)
             if(player->life > player->class.life)
                 player->life = player->class.life;
             printf("%.2f of life recovered.\n", dungeonFloorPerk);
-            giveXP(player, 7);
+            Item loot = dropItem();
+            printf("[LOOT] %s have found a %s!\n", player->name, loot.itemName);
+            int qt_xp = (rand() % 16) + 10;
+            giveXP(player, qt_xp);
+            printf("[XP] +%d\n", qt_xp);
 
-            clearScreen(1);
+            clearScreen(2);
         }
         else if(result == 0) // Run
         {
@@ -61,14 +68,18 @@ void joinDungeon(Player *player, Dungeon *dungeon)
         }
     }
 
-    if(dungeon->current_floor >= DG_FLOORS)
+    if(dungeon->current_floor >= DG_FLOORS) // Defeated al floors
     {
         printf("You beated the dungeon!\n");
         printf("Life fully recovered\n+5 atk points\n");
         dungeon->active = false;
         player->life = player->life_max;
         player->attack += 5;
-        giveXP(player, 33);
+        Item loot = dropItem();
+        printf("[LOOT] %s have found a %s!\n", player->name, loot.itemName);
+        int qt_xp = (rand() % 26) + 25;
+        giveXP(player, qt_xp);
+        printf("[XP] +%d\n", qt_xp);
     }
 }
 

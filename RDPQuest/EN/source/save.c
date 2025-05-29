@@ -53,6 +53,7 @@ void mkdirSaves(void)
 
 void savesList(void)
 {
+    clearScreen(0);
     char folder[512];
     getSaveFolderPath(folder, sizeof(folder));
     printf("Your Saves:\n------------\n");
@@ -117,6 +118,7 @@ void saveGame(Player *player, int saveSlot)
 
     fclose(gameFile);
     printf("Saved!\n%s\n", path);
+    clearScreen(2);
 }
 
 Player loadSave(int slot)

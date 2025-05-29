@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#define QT_CLASSES 7
+#define QT_CLASSES 11
 
 typedef struct
 {
