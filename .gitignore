@@ -6,6 +6,7 @@
 RDPQuest/PT/Makefile
 RDPQuest/PT/assets/
 RDPQuest/PT/build/
+RDPQuest/PT/saves/
 
 # en-US version
 RDPQuest/EN/Makefile
