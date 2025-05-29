@@ -7,10 +7,12 @@ prompt_rogue
 prompt_rogue.exe
 
 # PT
+PT/Makefile
 PT/assets/
 PT/build/
 
 # EN
+EN/Makefile
 EN/assets/
 EN/build/
 
