@@ -1,6 +1,6 @@
-# outros
-anotacoes.txt
-proj_organization.png
+# versoes e anotaçoes
+.projeto/
+.versions/
 
 # executaveis / compilados
 prompt_rogue
@@ -15,6 +15,3 @@ PT/build/
 EN/Makefile
 EN/assets/
 EN/build/
-
-# versions
-versions/
