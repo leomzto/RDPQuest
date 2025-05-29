@@ -1,12 +1,11 @@
-#ifndef FUNCS_H
-#define FUNCS_H
+#ifndef SAVE_H
+#define SAVE_H
 
 #include "player.h"
 #include <stddef.h>
 
 #define BAR_LENGHT 20
 
-void healthBar(char *string, float currentLife, float maxLife);
 void getSaveFolderPath(char *buffer, size_t size);
 void mkdirSaves(void);
 void savesList(void);

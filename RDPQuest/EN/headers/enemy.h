@@ -13,7 +13,7 @@ typedef struct
 } Enemy;
 
 Enemy createEnemy(void);
-void startBattle(Player *player, Enemy *enemy);
+int startBattle(Player *player, Enemy *enemy);
 Enemy createDungeonEnemy(int floor);
 
 #endif // ENEMY_H

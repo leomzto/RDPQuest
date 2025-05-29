@@ -3,7 +3,7 @@
 #include <stdbool.h>
 
 #include "game.h"
-#include "funcs.h"
+#include "save.h"
 
 int main(void)
 {

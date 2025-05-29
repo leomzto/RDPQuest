@@ -9,7 +9,7 @@
 #include "enemy.h"
 #include "dungeon.h"
 #include "utils.h"
-#include "funcs.h"
+#include "save.h"
 
 int gameMenu(void)
 {
@@ -57,13 +57,16 @@ int gameMenu(void)
                 savesList();
 
                 int saveSlot;
-                printf("Choose your save (1 - 5): ");
-                if(scanf("%d", &saveSlot) != 1 || saveSlot < 1 || saveSlot > 5)
+                printf("Choose your save (1 - 5)\nPress \'0' to return ");
+                if(scanf("%d", &saveSlot) != 1 || saveSlot < 0 || saveSlot > 5)
                 {
                     printf("Invalid slot.\n");
                     clearBuffer();
                     continue;
                 }
+                if(saveSlot == 0)
+                    return 0;
+                clearBuffer();
 
                 clearScreen(0);
                 printf("Loading save\n");
@@ -96,7 +99,7 @@ void startGame(Player player)
         printf("| 3. Inspect [%s]\n", player.name);
         printf("| 4. Save progression\n");
         printf("| 0. Back to menu\n");
-        printf("\t-> ");
+        printf("| -> ");
         scanf("%d", &option);
         clearBuffer();
 

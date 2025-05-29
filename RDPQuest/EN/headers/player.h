@@ -15,6 +15,7 @@ typedef struct
     Class class;
     float life, attack, deffense;
     float life_max, attack_max, deffense_max;
+    int level, xp, maxXP;
 } Player;
 
 extern const Class CLASSES[QT_CLASSES];

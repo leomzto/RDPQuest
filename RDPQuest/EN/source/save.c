@@ -1,9 +1,8 @@
-#include "funcs.h"
+#include "save.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
 
 #ifdef _WIN32
     #include <direct.h>
@@ -18,19 +17,6 @@
 
 #include "player.h"
 #include "utils.h"
-
-#define BAR_LENGHT 20
-
-void healthBar(char *string, float currentLife, float maxLife)
-{
-    int hp = (int)((currentLife / maxLife) * BAR_LENGHT);
-    if(currentLife > 0 && hp == 0) hp = 1;
-
-    printf("%s - [", string);
-    for(int i = 0; i < hp; i++) printf("+");
-    for(int i = hp; i < BAR_LENGHT; i++) printf("-");
-    printf("] (%.2f/%.2f)", currentLife, maxLife);
-}
 
 void getSaveFolderPath(char *buffer, size_t size)
 {
@@ -81,6 +67,7 @@ void savesList(void)
         if(saveFile != NULL)
         {
             char playerName[50] = "Empty";
+            int playerLevel = 0;
             char playerClass[20] = "Unknown";
             char fileLine[100];
 
@@ -88,10 +75,12 @@ void savesList(void)
             {
                 if(strstr(fileLine, "#Name<") != NULL)
                     sscanf(fileLine, "#Name<%[^>]>", playerName);
+                else if(strstr(fileLine, "#Level<") != NULL)
+                    sscanf(fileLine, "#Level<%d>", &playerLevel);
                 else if(strstr(fileLine, "#Class<") != NULL)
                     sscanf(fileLine, "#Class<%[^>]>", playerClass);
             }
-            printf("[%d] - %s (%s)\n", i, playerName, playerClass);
+            printf("[%d] - %s[%d] (%s)\n", i, playerName, playerLevel, playerClass);
             saveFound = true;
             fclose(saveFile);
         }
@@ -123,6 +112,8 @@ void saveGame(Player *player, int saveSlot)
     fprintf(gameFile, "#Life<%.2f/%.2f>\n", player->life, player->life_max);
     fprintf(gameFile, "#Attack<%.2f>\n", player->attack);
     fprintf(gameFile, "#Deffense<%.2f>\n", player->deffense);
+    fprintf(gameFile, "#Level<%d>\n", player->level);
+    fprintf(gameFile, "#XP<%d/%d>\n", player->xp, player->maxXP);
 
     fclose(gameFile);
     printf("Saved!\n%s\n", path);
@@ -142,38 +133,46 @@ Player loadSave(int slot)
         return playerEmpty;
     }
 
-    Player p = {0};
+    Player player = {0};
     char fileLine[100];
     char playerClass[20];
 
     while(fgets(fileLine, sizeof(fileLine), loadGame) != NULL)
     {
         if(strstr(fileLine, "#Name<") != NULL)
-            sscanf(fileLine, "#Name<%[^>]>", p.name);
-        else if(strstr(fileLine, "#Class<") != NULL) {
+            sscanf(fileLine, "#Name<%[^>]>", player.name);
+        else if(strstr(fileLine, "#Class<") != NULL)
+        {
             sscanf(fileLine, "#Class<%[^>]>", playerClass);
-            for(int i = 0; i < QT_CLASSES; i++) {
-                if(strcmp(CLASSES[i].name, playerClass) == 0)
+            playerClass[strcspn(playerClass, "\n")] = '\0';
+
+            for(int i = 0; i < QT_CLASSES; i++)
+            {
+                if(strcasecmp(CLASSES[i].name, playerClass) == 0)
                 {
-                    p.class = CLASSES[i];
+                    player.class = CLASSES[i];
                     break;
                 }
             }
         }
         else if(strstr(fileLine, "#Life<") != NULL)
-            sscanf(fileLine, "#Life<%f/%f>", &p.life, &p.life_max);
+            sscanf(fileLine, "#Life<%f/%f>", &player.life, &player.life_max);
         else if(strstr(fileLine, "#Attack<") != NULL)
-            sscanf(fileLine, "#Attack<%f>", &p.attack);
+            sscanf(fileLine, "#Attack<%f>", &player.attack);
         else if(strstr(fileLine, "#Deffense<") != NULL)
-            sscanf(fileLine, "#Deffense<%f>", &p.deffense);
+            sscanf(fileLine, "#Deffense<%f>", &player.deffense);
+        else if(strstr(fileLine, "#Level<") != NULL)
+            sscanf(fileLine, "#Level<%d>", &player.level);
+        else if(strstr(fileLine, "#XP<") != NULL)
+            sscanf(fileLine, "#XP<%d/%d>", &player.xp, &player.maxXP);
     }
 
     fclose(loadGame);
 
-    if(strlen(p.name) == 0)
+    if(strlen(player.name) == 0)
         printf("ERROR: Save %d is corrupted.\n", slot);
     else
         printf("Save %d loaded!\n", slot);
 
-    return p;
+    return player;
 }

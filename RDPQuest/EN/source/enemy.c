@@ -7,7 +7,9 @@
 
 #include "player.h"
 #include "utils.h"
-#include "funcs.h"
+#include "save.h"
+#include "miscellaneous.h"
+#include "level.h"
 
 const Enemy ENEMIES[] = {
     {"Skeleton", 50.0f, 10.0f, 5.0f, 25.0f},
@@ -44,7 +46,7 @@ Enemy createEnemy(void)
     return ENEMIES[0];
 }
 
-void startBattle(Player *player, Enemy *enemy)
+int startBattle(Player *player, Enemy *enemy)
 {
     float playerMaxLife = player->class.life;
     float enemyMaxLife = enemy->life;
@@ -52,7 +54,7 @@ void startBattle(Player *player, Enemy *enemy)
     clearScreen(1);
     printf("Searching for enemies\n");
     loadingScreen(10, '.', 1);
-    printf("Enemy ahead.\n");
+    printf("\nEnemy ahead.\n");
     printf("Starting battle\n");
     loadingScreen(10, '.', 1);
     clearScreen(1);
@@ -74,7 +76,7 @@ void startBattle(Player *player, Enemy *enemy)
         char playerChoice[20];
         while(true)
         {
-            printf("I choose ");
+            printf("I'll chose ");
             fgets(playerChoice, sizeof(playerChoice), stdin);
             playerChoice[strcspn(playerChoice, "\n")] = '\0';
 
@@ -118,7 +120,7 @@ void startBattle(Player *player, Enemy *enemy)
                 printf("You choose run.... What a noob.\n");
                 loadingScreen(3, '|', 0);
                 clearScreen(1);
-                return;
+                return 0;
             }
             // Choice: invalid choice
             else printf("Invalid choise. You can either ATTACK or RUN\n");
@@ -133,8 +135,9 @@ void startBattle(Player *player, Enemy *enemy)
             printf("%.2f of life recovered\n", combatPerk);
 
             printf("You won the battle againts %s!\n", enemy->name);
+            giveXP(player, 3);
             clearScreen(2);
-            break;
+            return 1;
         }
         // else if enemy won
         else if(player->life <= 0)
@@ -143,9 +146,10 @@ void startBattle(Player *player, Enemy *enemy)
             clearScreen(2);
             printf("Game Over\n");
             clearScreen(2);
-            exit(0);
+            return -1;
         }
     }
+    return 0;
 }
 
 Enemy createDungeonEnemy(int floor)
