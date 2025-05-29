@@ -102,7 +102,7 @@ void showStats(Player *player)
     scanf(" %c", &invOption);
     invOption = tolower(invOption);
 
-    if(invOption == 'y') printf("<open  backpack>\n");
+    if(invOption != 'n') printf("<open  backpack>\n");
 
     clearBuffer();
 }
