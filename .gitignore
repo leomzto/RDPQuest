@@ -11,6 +11,7 @@ RDPQuest/PT/build/
 RDPQuest/EN/Makefile
 RDPQuest/EN/assets/
 RDPQuest/EN/build/
+RDPQuest/EN/saves/
 
 # .exe | comp.
 game_PT
