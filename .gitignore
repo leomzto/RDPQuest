@@ -1,13 +1,19 @@
-rdp/Makefile
-
-versions/
-rdp/game/
-rdp/icons/
-
-rdp/crun.bat
-instalador/
-
-
-
-CS50 - FinalProject
+# outros
 anotacoes.txt
+project_organization.png
+
+# executaveis / compilados
+prompt_rogue
+prompt_rogue.exe
+
+# PT
+Portuguese version/
+Portuguese version/assets/
+Portuguese version/build/
+
+# EN
+English version/assets/
+English version/build/
+
+# versions
+versions/
