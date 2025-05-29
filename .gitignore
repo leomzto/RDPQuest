@@ -1,17 +1,19 @@
-# versoes e anotaçoes
-.projeto/
+# Versions | Notes
+.project/
 .versions/
 
-# executaveis / compilados
-prompt_rogue
-prompt_rogue.exe
+# pt-BR version
+RDPQuest/PT/Makefile
+RDPQuest/PT/assets/
+RDPQuest/PT/build/
 
-# PT
-PT/Makefile
-PT/assets/
-PT/build/
+# en-US version
+RDPQuest/EN/Makefile
+RDPQuest/EN/assets/
+RDPQuest/EN/build/
 
-# EN
-EN/Makefile
-EN/assets/
-EN/build/
+# .exe | comp.
+game_PT
+game_PT.exe
+game_EN
+game_EN.exe
