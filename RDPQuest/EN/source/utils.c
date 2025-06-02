@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Configurações específicas por sistema operacional */
+
 #ifdef _WIN32
     #include <windows.h>
     #include <direct.h>

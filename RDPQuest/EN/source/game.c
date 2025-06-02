@@ -17,7 +17,8 @@ int gameMenu(void)
 {
     int menuChoice;
 
-    do{
+    do
+    {
         clearScreen(0);
 
         printf("-= Prompt Rogue =-\n");

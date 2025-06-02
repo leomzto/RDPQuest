@@ -22,13 +22,9 @@ void getSaveFolderPath(char *buffer, size_t size)
 {
     const char *user = getenv("USERPROFILE");
     if(user)
-    {
         snprintf(buffer, size, "%s/.RDPQuest/saves/", user);
-    }
     else
-    {
         snprintf(buffer, size, "./saves/");
-    }
 }
 
 void mkdirSaves(void)
@@ -40,9 +36,8 @@ void mkdirSaves(void)
     snprintf(parentPath, sizeof(parentPath), "%s/.RDPQuest", getenv("USERPROFILE"));
 
     struct stat st = {0};
-    if (stat(parentPath, &st) == -1) {
+    if (stat(parentPath, &st) == -1)
         MKDIR(parentPath);
-    }
 
     if (stat(path, &st) == -1)
     {
