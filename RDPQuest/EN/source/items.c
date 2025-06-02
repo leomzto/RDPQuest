@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "player.h"
+#include "utils.h"
 
 // itemName,            lifeBuff, atackBuff, defenseBuff, xpGiven, dropRate
 const Item ITEMS[QT_ITEMS] = {
@@ -68,4 +69,40 @@ Item dropItem(void)
     }
 
     return ITEMS[4]; // Exp. Bottle
+}
+
+void addItemToInventory(Player *player, Item item)
+{
+    if(player->inventoryCount < INVENTORY_SIZE)
+    {
+        player->inventory[player->inventoryCount] = item;
+        player->inventoryCount++;
+        printf("%s has been added to %s inventory.\n", item.itemName, player->name);
+    }
+    else
+        printf("%s's inventory is full.\n", player->name);
+}
+
+void showInventory(Player *player)
+{
+    clearScreen(0);
+
+    for (int i = 0; i < player->inventoryCount; i++)
+    {
+        printf("\n%s's inventory:\n", player->name);
+        printf("[%d] %s (HP: %.0f, ATK: %.0f, DEF: %.0f, XP: %d)\n",
+            i + 1,
+            player->inventory[i].itemName,
+            player->inventory[i].lifeBuff,
+            player->inventory[i].attackBuff,
+            player->inventory[i].defenseBuff,
+            player->inventory[i].xpGiven
+        );
+    }
+    if (player->inventoryCount == 0)
+        printf("%s's inventory is empty!\n", player->name);
+    printf("\n| [ENTER]");
+
+    clearBuffer();
+    clearScreen(0);
 }

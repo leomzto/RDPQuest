@@ -89,6 +89,8 @@ Player generatePlayer(void)
     player.xp = 0;
     player.maxXP = 50;
 
+    player.inventoryCount = 0;
+
     player.life_max = player.class.life;
     player.attack_max = player.class.attack;
     player.deffense_max = player.class.deffense;

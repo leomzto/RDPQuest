@@ -36,7 +36,7 @@ int startBattle(Player *player, Enemy *enemy)
 
     while(player->life > 0 && enemy->life > 0)
     {
-        printf("\n[1] Atacck\n");
+        printf("\n[1] Attack\n");
         printf("[2] Run\n");
 
         char playerChoice[20];
@@ -102,7 +102,8 @@ int startBattle(Player *player, Enemy *enemy)
 
             printf("\n| You won the battle againts %s!\n", enemy->name);
             Item loot = dropItem();
-            printf("| [LOOT] %s have found a %s!\n", player->name, loot.itemName);
+            //printf("| [LOOT] %s have found a %s!\n", player->name, loot.itemName);
+            addItemToInventory(player, loot);
             int qt_xp = (rand() % 16) + 5;
             giveXP(player, qt_xp);
             printf("| [XP] +%d\n", qt_xp);

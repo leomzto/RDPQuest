@@ -11,6 +11,7 @@
 #include "dungeon.h"
 #include "utils.h"
 #include "save.h"
+#include "items.h"
 
 int gameMenu(void)
 {
@@ -98,7 +99,8 @@ void startGame(Player player)
         printf("| 1. Search for enemies\n");
         printf("| 2. Look for dungeons\n");
         printf("| 3. Inspect [%s]\n", player.name);
-        printf("| 4. Save progression\n");
+        printf("| 4. Open inventory\n");
+        printf("| 5. Save progression\n");
         printf("| 0. Back to menu\n");
         printf("| -> ");
         scanf("%d", &option);
@@ -125,7 +127,12 @@ void startGame(Player player)
                 showStats(&player);
                 break;
             }
-            case 4: // Save progression
+            case 4: // Open inventory
+            {
+                showInventory(&player);
+                break;
+            }
+            case 5: // Save progression
             {
                 int saveSlot;
                 savesList();

@@ -17,7 +17,7 @@ void healthBar(char *string, float currentLife, float maxLife)
 
 void xpBar(char *string, int currentXP, int maxXP)
 {
-    int xp = (int)(((float)currentXP / maxXP) * BAR_LENGTH);
+    int xp = (currentXP / maxXP) * BAR_LENGTH;
     if (currentXP > 0 && xp == 0) xp = 1;
 
     printf("%s - [", string);

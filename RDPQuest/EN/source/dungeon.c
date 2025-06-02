@@ -22,7 +22,7 @@ void joinDungeon(Player *player, Dungeon *dungeon)
 
         for(int floor = 0; floor < DG_FLOORS; floor++)
             dungeon->dungeon_enemies[floor] = createDungeonEnemy(floor);
-
+        clearScreen(0);
         printf("Entering the dungeon\n");
         loadingScreen(10, '.', 0);
         clearScreen(1);
@@ -48,7 +48,8 @@ void joinDungeon(Player *player, Dungeon *dungeon)
                 player->life = player->class.life;
             printf("%.2f of life recovered.\n", dungeonFloorPerk);
             Item loot = dropItem();
-            printf("[LOOT] %s have found a %s!\n", player->name, loot.itemName);
+            //printf("| [LOOT] %s have found a %s!\n", player->name, loot.itemName);
+            addItemToInventory(player, loot);
             int qt_xp = (rand() % 16) + 10;
             giveXP(player, qt_xp);
             printf("[XP] +%d\n", qt_xp);
@@ -76,7 +77,8 @@ void joinDungeon(Player *player, Dungeon *dungeon)
         player->life = player->life_max;
         player->attack += 5;
         Item loot = dropItem();
-        printf("[LOOT] %s have found a %s!\n", player->name, loot.itemName);
+        //printf("| [LOOT] %s have found a %s!\n", player->name, loot.itemName);
+        addItemToInventory(player, loot);
         int qt_xp = (rand() % 26) + 25;
         giveXP(player, qt_xp);
         printf("[XP] +%d\n", qt_xp);

@@ -1,7 +1,7 @@
 #ifndef ITEMS_H
 #define ITEMS_H
 
-#include "player.h"
+typedef struct Player Player;
 
 #define QT_ITEMS 34
 
@@ -16,5 +16,7 @@ typedef struct
 extern const Item ITEMS[QT_ITEMS];
 
 Item dropItem(void);
+void addItemToInventory(Player *player, Item item);
+void showInventory(Player *player);
 
 #endif
